@@ -1,7 +1,17 @@
 #Requires -Modules VMware.VIM
 
+#Get public and private function definition files. Thanks RamblingCookieMonster
 $Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\ -Filter *.ps1 -ErrorAction SilentlyContinue )
-Import-Module -Name $PSScriptRoot\Public\*.ps1 -Function * -ErrorAction SilentlyContinue
-Import-Module -Name $PSScriptRoot\Private\*.ps1 -Function * -ErrorAction SilentlyContinue
+$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\ -Filter *.ps1 -ErrorAction SilentlyContinue )
+
+#Dot source the files
+Foreach ($Import in @($Public + $Private)) {
+    Try {
+        Import-Module $Import.FullName
+    }
+    Catch {
+        Write-Error -Message "Failed to import function $($Import.FullName): $_"
+    }
+}
 
 Export-ModuleMember -Function $Public.BaseName
