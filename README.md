@@ -4,6 +4,16 @@ Module create to include custom functions that work with VMWare's PowerCLI. For 
 
 ## Installation
 
+> NOTE Some of the functions are still using PowerNSX. As such you will need the following versions of PowerCLI installed:
+>
+> VMware.PowerCLI Version 6.5.4.7155375
+
+Use the following to install the specific version of PowerCLI
+
+```powershell
+Install-Module -Name VMware.PowerCLI -RequiredVersion 6.5.4.7155375
+```
+
 Clone the repository into your **$Home\Documents\WindowsPowerShell\Modules** folder (create the Modules folder if you dont have one already)
 
 ```powershell
